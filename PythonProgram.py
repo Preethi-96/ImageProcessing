@@ -19,10 +19,7 @@ def FileConverterFxn(datFile, imgHt,imgWdt, strFrame, EndFrame, x1,y1,x2,y2):
   matrix=np.zeros((y2-y1+1, x2-x1+1, EndFrame-strFrame+1))
   #print(matrix)
   frameSize = 48 + (imgHt*imgWdt*2)
-  d=1
-  def extents(f):
-      delta = f[1] - f[0]
-      return [f[0] - delta/2, f[-1] + delta/2]
+
   for fr in range(strFrame,EndFrame):
      
       offset = 2060 + 48 + (frameSize * fr)
@@ -33,6 +30,7 @@ def FileConverterFxn(datFile, imgHt,imgWdt, strFrame, EndFrame, x1,y1,x2,y2):
       temp1=np.fromfile(fp,dtype='int16')
  
       temp=temp1[:imgHt*imgWdt].reshape((imgHt,imgWdt))
+      temp=temp.transpose()
 
       for y in range(y1,y2):
           for x in range(x1,x2):
@@ -40,7 +38,7 @@ def FileConverterFxn(datFile, imgHt,imgWdt, strFrame, EndFrame, x1,y1,x2,y2):
           
 
 
-  r=matrix[:,:,390]
+  r=matrix[:,:,48]
   plt.imshow(r,aspect='auto',interpolation='none',cmap='viridis', extent=[-0.5,31.5,63.5,-0.5] , origin='upper')
   plt.savefig('plot.png')
   print(r)

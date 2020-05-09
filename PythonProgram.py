@@ -14,14 +14,13 @@ def FileConverterFxn(datFile, imgHt,imgWdt, strFrame, EndFrame, x1,y1,x2,y2):
   fp=open(datFile, 'r')
   #print(fp.dtypes)
   fp.seek(0)
-  print(fp)
   print(fp.tell())
   matrix=np.zeros((y2-y1+1, x2-x1+1, EndFrame-strFrame+1))
   #print(matrix)
   frameSize = 48 + (imgHt*imgWdt*2)
 
   for fr in range(strFrame,EndFrame):
-     
+      fp.seek(0)
       offset = 2060 + 48 + (frameSize * fr)
       fp.seek(offset)
       #print(fp.tell())
